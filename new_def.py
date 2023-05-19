@@ -48,6 +48,10 @@ def sort_n(data):
     data = data.set_index('Название команды')
     s = b
     data = data.merge(s.rename('new'), left_index=True, right_index=True)
+    try:
+        data = data.drop(["Unnamed: 0","№"], axis=1)
+    except KeyError:
+        print("Непредвиденные обстоятельчтва")
     return data
 
 
