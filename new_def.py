@@ -61,3 +61,28 @@ def merg(data1,data2):
     if set(["Unnamed: 0"]).issubset(data1.columns):
         data1 = data1.drop(["Unnamed: 0"], axis=1)
     return data1
+
+# def ob_to_dt(data):
+#     dt = ['Начало трудового стажа', 'Дата рождения', "Начало трудовой деятельности в РОСАТОМ"]
+#     for i in dt:
+#         try:
+#             data[i] = pd.to_datetime(data[i])
+#             data["Month_"+i] = data[i].dt.month
+#             data["Year_"+i] = data[i].dt.year
+#             data["Day_"+i] = data[i].dt.day
+#         except:
+#             print(i)
+#     return data
+
+def ob_to_string(data):
+    data = data.drop(['Начало трудового стажа', 'Дата рождения', "Начало трудовой деятельности в РОСАТОМ", "Год оканчания","Профессия","Место образования","Специальность","Категория", "Место работы"], axis=1)
+    object_rows = data.select_dtypes(include=['object']).columns
+    for i in object_rows:
+
+        if  "Команда" !=i !="ФИО":
+            data = pd.concat([data, pd.get_dummies(data[i], prefix=i)], axis=1)
+
+    if set(["Unnamed: 0"]).issubset(data.columns):
+        data = data.drop(["Unnamed: 0"], axis=1)
+    print(data)
+    return data
