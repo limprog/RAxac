@@ -42,16 +42,22 @@ def sort_n(data):
         data = data.drop(['ФИО6'], axis=1)
         b = pd.concat([f, a, d, e, t, y], axis=0)
     if set(['ФИО7']).issubset(data.columns):
-        o = pd.Series(data['ФИО7'].values, index=data['Название команды'].values)
+        o = pd.Series(dataNaN['ФИО7'].values, index=data['Название команды'].values)
         data = data.drop(["ФИО7"], axis=1)
         b = pd.concat([f, a, d, e, t, y, o ], axis=0)
     data = data.set_index('Название команды')
     s = b
-    data = data.merge(s.rename('new'), left_index=True, right_index=True)
+    data = data.merge(s.rename('ФИО'), left_index=True, right_index=True)
     try:
         data = data.drop(["Unnamed: 0","№"], axis=1)
     except KeyError:
         print("Непредвиденные обстоятельчтва")
     return data
 
-
+def merg(data1,data2):
+    data1 = data1.set_index('ФИО')
+    data2 = data2.set_index('ФИО')
+    data1 = data1.merge(data2, left_index=True, right_index=True)
+    if set(["Unnamed: 0"]).issubset(data1.columns):
+        data1 = data1.drop(["Unnamed: 0"], axis=1)
+    return data1
