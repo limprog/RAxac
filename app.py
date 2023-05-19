@@ -11,15 +11,19 @@ col = ["Компетенция"]
 print(list(data.dtypes))
 for i in os.listdir("data/Anonimized"):
     data = pd.read_csv("data/Anonimized/"+i)
+    print(data.dtypes)
     comma_cols = [col for col in data.columns if data[col].dtype == 'object' and data[col].str.contains(',').any()]
+    print(comma_cols)
     for j in comma_cols:
-        if j !='Место работы':
-            data[j] = data[j].str.replace(',', '.')
-            try:
-                data[j] = data[j].astype(float)
-            except ValueError:
-                pass
-    data.to_csv("data2/Anonimized/"+i)
+        data[j] = data[j].str.replace(',', '.')
+        try:
+            data[j] = data[j].astype(float)
+
+        except ValueError:
+            pass
+        if set(["Unnamed: 0"]).issubset(data.columns):
+            data = data.drop(["Unnamed: 0"], axis=1)
+    data.to_csv("data/Anonimized/"+i)
 
 
 
