@@ -10,5 +10,10 @@ com_competihon = ['Геодезия.csv', 'Мехатроника.csv', 'Упр�
 
 
 
+for i in com_competihon:
+    data = sort_n(pd.read_csv("data/Anonimized/"+i))
+    data.to_csv("data2/Anonimized/"+i)
+
+
 
 
