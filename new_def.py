@@ -1,5 +1,6 @@
 import pandas as pd
-
+from sklearn.preprocessing import StandardScaler, normalize
+from sklearn.mixture import GaussianMixture
 def fio_meng(data):
     if set(['ФИО участников']).issubset(data.columns):
         data_temp = data['ФИО участников'].str.split(";", expand=True)
@@ -75,14 +76,44 @@ def merg(data1,data2):
 #     return data
 
 def ob_to_string(data):
-    data = data.drop(['Начало трудового стажа', 'Дата рождения', "Начало трудовой деятельности в РОСАТОМ", "Год оканчания","Профессия","Место образования","Специальность","Категория", "Место работы"], axis=1)
+    data = data.drop(['Начало трудового стажа', 'Дата рождения', "Начало трудовой деятельности в РОСАТОМ", "Год оканчания","Профессия","Место образования","Специальность","Категория"], axis=1)
     object_rows = data.select_dtypes(include=['object']).columns
     for i in object_rows:
 
-        if  "Команда" !=i !="ФИО":
-            data = pd.concat([data, pd.get_dummies(data[i], prefix=i)], axis=1)
+        if  "Команда" !=i !="ФИО" and "Список компетенций" != "Роль в мероприятии":
+            data[i] = data[i].astype('category')
+            data[i+"int"] = data[i].cat.codes
 
     if set(["Unnamed: 0"]).issubset(data.columns):
         data = data.drop(["Unnamed: 0"], axis=1)
     print(data)
+    return data
+
+
+def fit_2(data, k1, k2, name, n_components=3):
+    scaler = StandardScaler()
+    dataset_temp = data[[k1, k2]]
+    X_std = scaler.fit_transform(dataset_temp)
+    X = normalize(X_std, norm='l2')
+
+    gmm = GaussianMixture(n_components=n_components, covariance_type='spherical', max_iter=2000, random_state=5).fit(X)
+    labels = gmm.predict(X)
+    dataset_temp[name] = labels
+    data = data.merge(dataset_temp[name], left_index=True, right_index=True)
+    if set(["Unnamed: 0"]).issubset(data.columns):
+        data = data.drop(["Unnamed: 0"], axis=1)
+    return data
+
+
+def fit_3(data, k1, k2, k3, name, n_components=3):
+    scaler = StandardScaler()
+    dataset_temp = data[[k1, k2]]
+    X_std = scaler.fit_transform(dataset_temp)
+    X = normalize(X_std, norm='l2')
+    if set(["Unnamed: 0"]).issubset(data.columns):
+        data = data.drop(["Unnamed: 0"], axis=1)
+    gmm = GaussianMixture(n_components=n_components, covariance_type='spherical', max_iter=2000, random_state=5).fit(X)
+    labels = gmm.predict(X)
+    dataset_temp[name] = labels
+    data = data.merge(dataset_temp[name], left_index=True, right_index=True)
     return data
