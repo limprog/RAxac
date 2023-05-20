@@ -161,3 +161,4 @@ Werkzeug==2.2.2
 yapf==0.32.0
 yarl==1.8.2
 zope.interface==5.5.2
+gunicorn
