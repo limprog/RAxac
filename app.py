@@ -1,3 +1,4 @@
+
 from dash import Dash, html, dash_table, dcc, callback, Output, Input
 import pandas as pd
 import plotly.express as px
@@ -16,8 +17,8 @@ l=os.listdir('data/Anonimized')
 app.layout = html.Div([
     html.Div(children='Кейс от Росатома'),
     dcc.Tabs([
-        dcc.Tab(label='Кластерезация', children=[
-            "Выбор наменации",
+        dcc.Tab(label='Кластеризация', children=[
+            "Выбор номинации",
             dcc.Dropdown(
                 ['Корпоративная защита от внутренних угроз информационной безопасности', 'Инженер-технолог машиностроения',
                  'Работы на токарных универсальных станках', 'Водитель спецавтомобиля',
@@ -35,11 +36,11 @@ app.layout = html.Div([
                  'Электроника', 'Инженерное проектирование', 'Инженер-конструктор'],
                  'Корпоративная защита от внутренних угроз информационной безопасности',
                  id='clientside-graph-indicator'),
-            "Тип кластерезации",
+            "Тип кластеризации",
             dcc.Dropdown(["BPO", "BDO"], "BPO",id='graf'),
             html.H2(style={"text-align": "center"}, children="Пояснение"),
-            html.H4( children="1. BPO-Классефикация по баллам, Полу, оброзованию"),
-            html.H4( children="1. BDO-Классефикация по баллам, Должности, оброзованию"),
+            html.H4( children="1. BPO-Классификация по баллам, Полу, образованию"),
+            html.H4( children="1. BDO-Классификация по баллам, Должности, образованию"),
             html.Table(
                 children=[
                 html.Td([
