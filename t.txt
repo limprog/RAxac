@@ -18,7 +18,7 @@ fqdn==1.5.1
 plotly==5.14.1
 pandas
 prometheus-client==0.16.0
-scikit-learn==1.2.2
+scikit-learn
 Send2Trash==1.8.2
 six==1.16.0
 sklearn==0.0.post5
