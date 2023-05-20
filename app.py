@@ -14,6 +14,7 @@ com_competihon = ['Геодезия.csv', 'Мехатроника.csv', 'Упр�
 
 
 app = Dash(__name__)
+server=app.server
 l=os.listdir('data/Anonimized')
 
 app.layout = html.Div([
