@@ -106,7 +106,6 @@ def ob_to_string(data):
 
     if 'Unnamed: 0' in data.columns:
         data = data.drop(["Unnamed: 0"], axis=1)
-    print(data)
     return data
 
 
@@ -151,7 +150,6 @@ def data_cotanizm():
             data = fio_meng(data)
             data = sort_n(data)
             data = merg(data, data2)
-            print(dict(data))
             data = ob_to_float(data)
             data = ob_to_string(data)
 
