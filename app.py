@@ -309,7 +309,7 @@ def graf_3(X,Y):
         fig2 = px.scatter(data, x="Баллы, %", y="Образованиеint", color=Y, hover_name="ФИО")
     return fig, fig2
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(debug=False)
 #
 style={
                 'display': 'inline-block',
