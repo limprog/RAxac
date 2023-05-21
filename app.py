@@ -177,7 +177,7 @@ app.layout = html.Div([
                  'Электроника', 'Инженерное проектирование', 'Инженер-конструктор'],
                     value="Аддитивные технологии.csv",
                     id='6'),
-                html.Button("Скачать ", id="btn-download-txt"),
+                # html.Button("Скачать ", id="btn-download-txt"),
                 dcc.Download(id="download-text"),
 "Скачать обученный датасет",
                 dcc.Dropdown(options=['Корпоративная защита от внутренних угроз информационной безопасности', 'Инженер-технолог машиностроения',
@@ -196,7 +196,7 @@ app.layout = html.Div([
                  'Электроника', 'Инженерное проектирование', 'Инженер-конструктор'],
                     value="Аддитивные технологии.csv",
                     id='7'),
-                html.Button("Скачать ", id="btn-download-txt2"),
+                # html.Button("Скачать ", id="btn-download-txt2"),
                 dcc.Download(id="download-text2")
             ])
 
@@ -206,21 +206,21 @@ app.layout = html.Div([
 
 @app.callback(
     Output("download-text", "data"),
-    Input("btn-download-txt", "n_clicks"),
+    # Input("btn-download-txt", "n_clicks"),
     Input("6", "value"),
     prevent_initial_call=True,
 )
-def func(n_clicks, i):
+def func( i):
     df = pd.read_csv("data/Anonimized/"+i+".csv")
     return dcc.send_data_frame(df.to_csv, i+".csv")
 
 @app.callback(
     Output("download-text2", "data"),
-    Input("btn-download-txt2", "n_clicks"),
+    # Input("btn-download-txt2", "n_clicks"),
     Input("7", "value"),
     prevent_initial_call=True,
 )
-def func(n_clicks, i):
+def func(i):
     df = pd.read_csv("new_data/Anonimized/"+i+".csv")
     return dcc.send_data_frame(df.to_csv, i+".csv")
 
